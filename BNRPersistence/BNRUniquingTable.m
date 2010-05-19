@@ -42,7 +42,7 @@
 
 - (void)setObject:(BNRStoredObject *)obj forClass:(Class)c rowID:(UInt32)row
 {
-    UInt32 bucket = (row + (UInt64)c) % tableSize;
+    UInt32 bucket = (row + (UInt64)((long)c)) % tableSize;
     struct UniquingListNode *ptr = table[bucket];
     struct UniquingListNode *lastPtr = NULL;
     while (ptr != NULL) {
@@ -69,7 +69,7 @@
 
 - (BNRStoredObject *)objectForClass:(Class)c rowID:(UInt32)row;
 {
-    UInt32 bucket = (row + (UInt64)c) % tableSize;
+    UInt32 bucket = (row + (UInt64)((long)c)) % tableSize;
     struct UniquingListNode *ptr = table[bucket];
     while (ptr != NULL) {
         BNRStoredObject *currentObject = ptr->storedObject;
@@ -83,7 +83,7 @@
 
 - (void)removeObjectForClass:(Class)c rowID:(UInt32)row
 {
-    UInt32 bucket = (row + (UInt64)c) % tableSize;
+    UInt32 bucket = (row + (UInt64)((long)c)) % tableSize;
     struct UniquingListNode *ptr = table[bucket];
     struct UniquingListNode *previousPtr = NULL;
     while (ptr != NULL) {
