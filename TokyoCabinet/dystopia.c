@@ -944,7 +944,7 @@ static bool tcidbputimpl(TCIDB *idb, int64_t id, const char *text){
   char stack[IDBIOBUFSIZ];
   int vsiz = tchdbget3(txdb, kbuf, ksiz, stack, IDBIOBUFSIZ);
   uint8_t ocnum;
-  if(vsiz >= sizeof(ocnum)){
+  if(vsiz >= 0 && vsiz >= sizeof(ocnum)){
     ocnum = ((uint8_t *)stack)[vsiz-1];
     if(ocnum >= IDBQDBMAX){
       tchdbsetecode(txdb, TCEMISC, __FILE__, __LINE__, __func__);
